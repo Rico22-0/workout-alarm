@@ -81,32 +81,40 @@ function triggerAlarm() {
     // Start listening for shakes
     initMotionDetection();
 }
-
-// Motion Detection Logic (Phase 2 preview integrated early)
+// Motion Detection Logic (Optimized for Android & iOS)
 function initMotionDetection() {
     let lastX = 0, lastY = 0, lastZ = 0;
-    let threshold = 15; // Sensitivity threshold for a "shake"
+    let threshold = 10; // Lowered threshold so it's easier to trigger
 
-    window.addEventListener('devicemotion', (event) => {
-        if (!isRinging) return;
+    // Check if device motion is supported by the browser
+    if (window.DeviceMotionEvent) {
+        window.addEventListener('devicemotion', (event) => {
+            if (!isRinging) return;
 
-        let acc = event.accelerationIncludingGravity;
-        if (!acc) return;
+            // Fallback for different Android/iOS devices
+            let acc = event.accelerationIncludingGravity || event.acceleration;
+            if (!acc || acc.x === null) return;
 
-        let deltaX = Math.abs(acc.x - lastX);
-        let deltaY = Math.abs(acc.y - lastY);
-        let deltaZ = Math.abs(acc.z - lastZ);
+            let deltaX = Math.abs(acc.x - lastX);
+            let deltaY = Math.abs(acc.y - lastY);
+            let deltaZ = Math.abs(acc.z - lastZ);
 
-        if (deltaX > threshold || deltaY > threshold || deltaZ > threshold) {
-            currentShakes++;
-            updateProgress();
-        }
+            if (deltaX > threshold || deltaY > threshold || deltaZ > threshold) {
+                currentShakes++;
+                updateProgress();
+            }
 
-        lastX = acc.x;
-        lastY = acc.y;
-        lastZ = acc.z;
-    });
+            lastX = acc.x;
+            lastY = acc.y;
+            lastZ = acc.z;
+        });
+        console.log("Motion listener successfully attached!");
+    } else {
+        alert("Device motion is not supported on this browser/device.");
+    }
 }
+
+     
 
 // Update Progress Bar
 function updateProgress() {
