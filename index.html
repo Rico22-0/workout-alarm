@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout alarm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Current Time Display -->
+         <div class="clock-display">
+            <h1 id="current-time">00:00:00</h1>
+            <p id="current-date">Loading date....</p>
+         </div>
+
+         <!-- Alarm Setup Section -->
+          <div class="alarm-setup" id="setup-section">
+            <h2>Set Your Wake-Up Goal</h2>
+            <input type="time" id="alarm-time-input">
+            <button id="set-alarm-btn">Set Alarm</button>
+            <p id="alarm-status">Alarm is OFF</p>
+          </div>
+
+          <!--Alarm Ringing / Workout Section (Hidden By Default) -->
+          <div class="alarm-ringing hidden" id="ringing-section">
+            <h1 class="blink">WAKE UP! </h1>
+            <p>Shake your phone to silence the alarm!</p>
+            <div class="progress-container">
+                <p>Shakes: <span id="shake-count">0</span> / 15</p>
+                <div class="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+            </div>
+          </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
