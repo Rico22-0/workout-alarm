@@ -78,7 +78,7 @@ function triggerAlarm() {
         navigator.vibrate([500, 250, 500, 250]); // Continuous vibration pattern
     }
 
-    // Start Listening for shakes
+    // Start listening for shakes
     initMotionDetection();
 }
 
@@ -118,7 +118,7 @@ function updateProgress() {
     shakeCountDisplay.textContent = currentShakes;
     progressFill.style.width = `${percentage}%`;
 
-    // Check goal is met
+    // Check if goal is met
     if (currentShakes >= targetShakes) {
         stopAlarm();
     }
